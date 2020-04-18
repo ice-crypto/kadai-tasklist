@@ -16,7 +16,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(message_params)
+    @task = Task.new(task_params)
     
     if @task.save
       flash[:success] = "タスクの追加が完了しました。"
@@ -28,9 +28,20 @@ class TasksController < ApplicationController
   end
 
   def update
+    if @task.update(task_params)
+      flash[:success] = "更新が完了しました。"
+      redirect_to @task
+    else
+      flash.now[:danger] = "更新が失敗しました。"
+      render :edit
+    end
   end
 
   def destroy
+    id = @task[:id]
+    @task.destroy
+    flash[:success] = "id#{id}のタスクが削除されました。"
+    redirect_to tasks_path
   end
   
   private
@@ -39,7 +50,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
   
-  def message_params
+  def task_params
     params.require(:task).permit(:content,:title)
   end
   
