@@ -38,9 +38,8 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    id = @task[:id]
     @task.destroy
-    flash[:success] = "id#{id}のタスクが削除されました。"
+    flash[:success] = "タスクが削除されました。"
     redirect_to tasks_path
   end
   
@@ -51,7 +50,7 @@ class TasksController < ApplicationController
   end
   
   def task_params
-    params.require(:task).permit(:content,:title)
+    params.require(:task).permit(:content)
   end
   
 end
