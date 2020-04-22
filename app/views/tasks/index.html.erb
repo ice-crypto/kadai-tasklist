@@ -1,3 +1,4 @@
+<%if logged_in?%>
 <h1>タスク一覧</h1>
 
 <% if @tasks.any? %>
@@ -24,4 +25,5 @@
   </div>
 <% end %>
 
-<%= link_to '新規タスクの投稿', new_task_path, class: "btn btn-primary" %> 
+<%= link_to '新規タスクの投稿', new_task_path, class: "btn btn-primary" %>
+<% end %>

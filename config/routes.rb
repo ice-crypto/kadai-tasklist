@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   root to: 'tasks#index'
   
-  post 'sessions/create'
-  delete 'sessions/destroy'
-  get 'users/index'
-  post 'users/create'
-  get 'users/new'
+  get 'login',     to: 'sessions#new'
+  post 'login',    to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
   
+  get 'signup',    to: 'users#new'
+  resources :users, only:[:create,:new] 
   resources :tasks
 end
