@@ -1,12 +1,12 @@
 class TasksController < ApplicationController
   before_action :set_task_found_id, only:[:show,:edit,:update,:destroy]
-  
+  before_action :require_user_logged_in
   def index
-    @tasks = Task.all.page(params[:page])
+      @tasks = current_user.tasks.all.page(params[:page])
   end
 
   def new
-    @task = Task.new
+    @task = current_user.tasks.build
   end
 
   def edit
@@ -16,7 +16,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     
     if @task.save
       flash[:success] = "タスクの追加が完了しました。"

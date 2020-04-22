@@ -9,7 +9,13 @@
     <!-- メニュー項目 -->
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
       <ul class="navbar-nav">
+        <% if logged_in? %>
         <li class="nav-item"><%= link_to  '新規タスクの投稿', new_task_path, class: 'nav-link' %></li>
+        <li class="nav-item"><%= link_to  'logout',           logout_path,   class: 'nav-link', method: :delete %></li>
+        <% else %>
+        <li class="nav-item"><%= link_to  'login',            login_path,    class: 'nav-link' %></li>
+        <li class="nav-item"><%= link_to  'signup',           signup_path,   class: 'nav-link' %></li>
+        <% end %>
       </ul>
     </div>
   </nav>
