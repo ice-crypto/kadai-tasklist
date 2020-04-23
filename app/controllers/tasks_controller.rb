@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
-  before_action :set_task_found_id, only:[:show,:edit,:update,:destroy]
+  before_action :currect_user_set_task, only:[:show,:edit,:update,:destroy]
   before_action :require_user_logged_in
+
   def index
       @tasks = current_user.tasks.all.page(params[:page])
   end
@@ -45,8 +46,9 @@ class TasksController < ApplicationController
   
   private
   
-  def set_task_found_id
+  def currect_user_set_task
     @task = Task.find(params[:id])
+    require_correct_user(@task.id)
   end
   
   def task_params
