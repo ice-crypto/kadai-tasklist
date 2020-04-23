@@ -47,8 +47,13 @@ class TasksController < ApplicationController
   private
   
   def currect_user_set_task
-    @task = Task.find(params[:id])
-    require_correct_user(@task.id)
+    @task = Task.find_by(id: params[:id])
+   if @task
+     require_correct_user(@task.id)
+   else
+     flash[:danger] = "指定されたタスクIDが見つかりませんでした。"
+     redirect_to root_path
+   end
   end
   
   def task_params
